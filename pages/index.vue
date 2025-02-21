@@ -14,6 +14,13 @@ const {
 
 const randomFlag = ref<Flag | undefined>();
 const guess = ref("");
+const maxLifes = 6;
+const guesses = ref<string[]>([]);
+
+const lifes = computed(() => {
+  return maxLifes - guesses.value.length;
+});
+
 const options = computed(
   () =>
     flags?.value?.map((f) => ({
@@ -25,6 +32,15 @@ const options = computed(
 const handleGetRandomFlag = () => {
   randomFlag.value =
     flags?.value?.[Math.floor(Math.random() * flags?.value?.length)];
+};
+
+const handleGuess = () => {
+  if (guess.value === randomFlag.value?.name) {
+    alert("You guessed it!");
+  } else {
+    guesses.value.push(guess.value);
+    guess.value = "";
+  }
 };
 
 watch(flags, () => {
@@ -64,22 +80,33 @@ interface Flag {
       </div>
       <div class="flex justify-center flex-col w-full">
         <div class="p-3 flex justify-center space-x-6">
-          <Icon class="text-cyan-500 w-8 h-8" name="si:heart-alt-duotone" />
-          <Icon class="text-cyan-500 w-8 h-8" name="si:heart-alt-duotone" />
-          <Icon class="text-cyan-500 w-8 h-8" name="si:heart-alt-duotone" />
-          <Icon class="text-cyan-500 w-8 h-8" name="si:heart-alt-duotone" />
-          <Icon class="text-cyan-500 w-8 h-8" name="si:heart-alt-duotone" />
-          <Icon class="text-cyan-500 w-8 h-8" name="si:heart-alt-duotone" />
+          <Icon
+            class="text-cyan-500 w-8 h-8"
+            name="si:heart-alt-duotone"
+            v-for="life of lifes"
+          />
         </div>
 
-        <AutoComplete v-model="guess" :options="options" />
+        <form
+          @submit.prevent="handleGuess"
+          class="w-full flex flex-row items-center justify-center gap-4 py-6"
+        >
+          <AutoComplete v-model="guess" :options="options" />
+
+          <button
+            class="bg-cyan-500 h-full px-4 py-2 border border-cyan-500 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
+          >
+            Submit
+          </button>
+        </form>
 
         <div
           class="bg-gray-800 border-[0.1px] border-gray-600 w-full rounded-lg mt-3"
         >
-          <h1 class="p-2 text-white">teste</h1>
+          <p class="p-2 text-white" v-for="guess of guesses">{{ guess }}</p>
         </div>
       </div>
     </div>
   </div>
 </template>
+

@@ -14,16 +14,16 @@ const emit = defineEmits<{
 
 const modelValue = ref("");
 
-watch(modelValue, (newVal) => {
-  emit("update:modelValue", newVal);
-});
-
 const filteredOptions = computed(() => {
   return modelValue.value === ""
     ? []
     : props.options.filter((option) =>
         option.label.toLowerCase().includes(modelValue.value.toLowerCase())
       );
+});
+
+watch(modelValue, (newVal) => {
+  emit("update:modelValue", newVal);
 });
 </script>
 
@@ -40,7 +40,7 @@ const filteredOptions = computed(() => {
     <!-- Lista de opções filtradas -->
     <div
       v-if="filteredOptions.length > 0"
-      class="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+      class="absolute left-0 right-0 mt-1 bg-gray-200 border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
     >
       <ul class="max-h-full">
         <li
