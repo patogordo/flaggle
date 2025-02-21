@@ -56,19 +56,26 @@ interface Flag {
       <h1 class="text-emerald-500">{{ randomFlag }}</h1>
       <div class="flex justify-center mt-6">
         <img
-          class="select-none rounded border-[0.1px] border-gray-600"
+          class="max-h-[300px] select-none rounded border-[0.1px] border-gray-600"
           :src="randomFlag?.img"
           user-select="none"
           draggable="false"
         />
       </div>
       <div class="flex justify-center flex-col w-full">
-        <Icon class="text-cyan-500 w-8 h-8" name="pixelarticons:heart" />
+        <div class="p-3 flex justify-center space-x-6">
+          <Icon class="text-cyan-500 w-8 h-8" name="si:heart-alt-duotone" />
+          <Icon class="text-cyan-500 w-8 h-8" name="si:heart-alt-duotone" />
+          <Icon class="text-cyan-500 w-8 h-8" name="si:heart-alt-duotone" />
+          <Icon class="text-cyan-500 w-8 h-8" name="si:heart-alt-duotone" />
+          <Icon class="text-cyan-500 w-8 h-8" name="si:heart-alt-duotone" />
+          <Icon class="text-cyan-500 w-8 h-8" name="si:heart-alt-duotone" />
+        </div>
 
         <AutoComplete v-model="guess" :options="options" />
 
         <div
-          class="bg-gray-800 border-[0.1px] border-gray-600 w-full rounded-lg mt-6"
+          class="bg-gray-800 border-[0.1px] border-gray-600 w-full rounded-lg mt-3"
         >
           <h1 class="p-2 text-white">teste</h1>
         </div>
