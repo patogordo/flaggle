@@ -34,12 +34,14 @@ const handleGetRandomFlag = () => {
     flags?.value?.[Math.floor(Math.random() * flags?.value?.length)];
 };
 
-const handleGuess = () => {
-  if (guess.value === randomFlag.value?.name) {
-    alert("You guessed it!");
+const handleGuess = (userGuess: string) => {
+  guess.value = "";
+
+  if (userGuess === randomFlag.value?.name) {
+    handleGetRandomFlag();
+    guesses.value = [];
   } else {
-    guesses.value.push(guess.value);
-    guess.value = "";
+    guesses.value.push(userGuess);
   }
 };
 
@@ -82,22 +84,15 @@ interface Flag {
           <Icon
             class="text-cyan-500 w-8 h-8"
             name="si:heart-alt-duotone"
-            v-for="life of lifes"
+            v-for="_ of lifes"
           />
         </div>
 
-        <form
-          @submit.prevent="handleGuess"
-          class="w-full flex flex-row items-center justify-center gap-4 py-3"
-        >
-          <AutoComplete v-model="guess" :options="options" />
-
-          <button
-            class="text-gray-900 bg-cyan-500 h-full px-4 py-2 border border-cyan-500 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
-          >
-            Submit
-          </button>
-        </form>
+        <AutoComplete
+          v-model="guess"
+          :options="options"
+          v-on:submit:guess="handleGuess"
+        />
 
         <div
           class="bg-gray-800 border-[0.1px] border-gray-600 w-full rounded-lg mt-3"
