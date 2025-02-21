@@ -69,7 +69,6 @@ interface Flag {
     </div>
 
     <div class="max-w-[520px] flex flex-col self-center" v-else>
-      <h1 class="text-emerald-500">{{ randomFlag }}</h1>
       <div class="flex justify-center mt-6">
         <img
           class="max-h-[300px] select-none rounded border-[0.1px] border-gray-600"
@@ -79,7 +78,7 @@ interface Flag {
         />
       </div>
       <div class="flex justify-center flex-col w-full">
-        <div class="p-3 flex justify-center space-x-6">
+        <div class="p-3 mt-3 flex justify-center space-x-6">
           <Icon
             class="text-cyan-500 w-8 h-8"
             name="si:heart-alt-duotone"
@@ -89,12 +88,12 @@ interface Flag {
 
         <form
           @submit.prevent="handleGuess"
-          class="w-full flex flex-row items-center justify-center gap-4 py-6"
+          class="w-full flex flex-row items-center justify-center gap-4 py-3"
         >
           <AutoComplete v-model="guess" :options="options" />
 
           <button
-            class="bg-cyan-500 h-full px-4 py-2 border border-cyan-500 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
+            class="text-gray-900 bg-cyan-500 h-full px-4 py-2 border border-cyan-500 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
           >
             Submit
           </button>
@@ -109,4 +108,3 @@ interface Flag {
     </div>
   </div>
 </template>
-
